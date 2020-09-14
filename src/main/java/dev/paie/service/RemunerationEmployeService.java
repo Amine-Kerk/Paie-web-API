@@ -42,9 +42,9 @@ public class RemunerationEmployeService {
 
 		if (entrepriseNewRemu.isPresent() && profilNewRemu.isPresent() && gradeNewRemu.isPresent()) {
 
-			RemunerationEmploye newRemu = new RemunerationEmploye (dto.getMatricule(),entrepriseNewRemu.get(),profilNewRemu.get(),gradeNewRemu.get());
+		//	RemunerationEmploye newRemu = new RemunerationEmploye (dto.getMatricule(),entrepriseNewRemu.get(),profilNewRemu.get(),gradeNewRemu.get());
 
-			returnedRemu = repoRemuEmp.save(newRemu);
+		//	returnedRemu = repoRemuEmp.save(newRemu);
 		}
 
 		return returnedRemu;
