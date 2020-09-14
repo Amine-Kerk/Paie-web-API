@@ -1,23 +1,18 @@
-package dev.paie.entite;
+package dev.paie.DTO;
 
 import java.math.BigDecimal;
 
+import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-
-@Entity
-public class Avantage {
+public class AvantageRequestDto {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
+	@NotNull
 	private String code;
+
+	@NotNull
 	private String nom;
+
+	@NotNull
 	private BigDecimal montant;
 
 	public String getCode() {
@@ -44,11 +39,4 @@ public class Avantage {
 		this.montant = montant;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 }

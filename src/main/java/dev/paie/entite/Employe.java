@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 public class Employe {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String matricule;

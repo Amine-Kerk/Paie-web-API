@@ -1,15 +1,12 @@
 package dev.paie.DTO;
 
-
-
 public class EmployeRequestDto {
-	
 	private String matricule;
 	private Integer entrepriseId;
 	private Integer profilRemunerationId;
 	private Integer gradeId ;
-	
-	
+
+
 	public String getMatricule() {
 		return matricule;
 	}
@@ -34,15 +31,4 @@ public class EmployeRequestDto {
 	public void setGradeId(Integer gradeId) {
 		this.gradeId = gradeId;
 	}
-	
-	
-	
-	
-	
-
-
-
-
-
-
 }

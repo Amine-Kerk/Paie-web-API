@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class ProfilRemuneration {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String code;
 
@@ -22,7 +22,7 @@ public class ProfilRemuneration {
 	private List<Cotisation> cotisations;
 
 
-	@OneToMany
+	@ManyToMany
 	private List<Avantage> avantages;
 
 	public Integer getId() {

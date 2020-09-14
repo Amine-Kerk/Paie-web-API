@@ -12,23 +12,26 @@ import dev.paie.repository.EntrepriseRepository;
 @Service
 public class EntrepriseService {
 
-	private EntrepriseRepository entrepriseRepository;
+	
 
-	public EntrepriseService(EntrepriseRepository entrepriseRepository) {
-		super();
-		this.entrepriseRepository = entrepriseRepository;
-	}
-	
-	public Optional<Entreprise> findById (Integer id) {
-		return entrepriseRepository.findById(id);
+		private EntrepriseRepository repoEntreprise;
+
+		public EntrepriseService(EntrepriseRepository repoEntreprise) {
+			this.repoEntreprise = repoEntreprise;
+		}
+
+		public Optional<Entreprise> recupererEntreprise(int id) {
+			return repoEntreprise.findById(id);
+		}
+
+		public List<Entreprise> listerEntreprise() {
+			return repoEntreprise.findAll();
+		}
 		
+		public Optional<Entreprise> findById (Integer id) {
+			return repoEntreprise.findById(id);
+		}
+    
 		
-	}
-	
-	
-	public List<Entreprise> listerEntreprises(Integer numeroPage, Integer taille) {
-	return entrepriseRepository.findAll(PageRequest.of(numeroPage, taille)).getContent();
-  
-}
 	
 }

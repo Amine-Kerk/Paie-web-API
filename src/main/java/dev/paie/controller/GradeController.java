@@ -2,6 +2,8 @@ package dev.paie.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,20 +14,19 @@ import dev.paie.entite.Grade;
 import dev.paie.service.GradeService;
 
 @RestController
-@RequestMapping("grade")
+@RequestMapping("grades")
 public class GradeController {
 
-	
-	private GradeService gradeService ;
+	private GradeService gService;
 
-	public GradeController(GradeService gradeService) {
-		super();
-		this.gradeService = gradeService;
+	public GradeController(GradeService gService) {
+		this.gService = gService;
 	}
-	
-	// Get/grade
-		@GetMapping
-	    public List<Grade> listerGrades( @RequestParam Integer start, @RequestParam Integer size) {
-	        return gradeService.listerGrades(start, size);
-	    }
+
+	@GetMapping
+	public ResponseEntity<?> getAllGrades() {
+			return ResponseEntity.status(HttpStatus.OK).body(gService.listerGrades());
+	}
+
 }
+
