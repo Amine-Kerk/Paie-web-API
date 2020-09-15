@@ -28,7 +28,7 @@ public class EntrepriseService {
 			return repoEntreprise.findAll();
 		}
 		
-		public Optional<Entreprise> findById (Integer id) {
+		public Optional<Entreprise> findEntrepriseById (Integer id) {
 			return repoEntreprise.findById(id);
 		}
     

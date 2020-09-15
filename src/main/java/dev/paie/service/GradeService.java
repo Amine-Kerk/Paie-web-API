@@ -37,7 +37,7 @@ public class GradeService {
 	}
 	
 	
-	public Optional<Grade> findById (Integer id) {
+	public Optional<Grade> getGradeById (Integer id) {
 		return repoGrade.findById(id);
 }
 

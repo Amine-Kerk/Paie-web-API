@@ -1,53 +1,81 @@
 package dev.paie.service;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import dev.paie.DTO.RemunerationEmployeRequestDto;
+
 import dev.paie.entite.Entreprise;
 import dev.paie.entite.Grade;
 import dev.paie.entite.ProfilRemuneration;
 import dev.paie.entite.RemunerationEmploye;
-import dev.paie.repository.EntrepriseRepository;
-import dev.paie.repository.GradeRepository;
-import dev.paie.repository.ProfilRemunerationRepository;
 import dev.paie.repository.RemunerationEmployeRepository;
+
 
 @Service
 public class RemunerationEmployeService {
+	
 	private RemunerationEmployeRepository repoRemuEmp;
-	private EntrepriseRepository repoEntreprise;
-	private ProfilRemunerationRepository profilRepo;
-	private GradeRepository repoGrade;
-
-	public RemunerationEmployeService(RemunerationEmployeRepository repoRemuEmp, EntrepriseRepository repoEntreprise,
-			ProfilRemunerationRepository profilRepo, GradeRepository repoGrade) {
+	private EntrepriseService entrepriseService;
+	private ProfilRemunerationService profilRemunerationService;
+	private GradeService gradeService;
+	
+	
+	public RemunerationEmployeService(RemunerationEmployeRepository repoRemuEmp, EntrepriseService entrepriseService,
+			ProfilRemunerationService profilRemunerationService, GradeService gradeService) {
+		super();
 		this.repoRemuEmp = repoRemuEmp;
-		this.repoEntreprise = repoEntreprise;
-		this.profilRepo = profilRepo;
-		this.repoGrade = repoGrade;
+		this.entrepriseService = entrepriseService;
+		this.profilRemunerationService = profilRemunerationService;
+		this.gradeService = gradeService;
 	}
 
-	
-	public RemunerationEmploye creerRemunerationEmploye(RemunerationEmployeRequestDto dto) {
 
-		RemunerationEmploye returnedRemu = new RemunerationEmploye();
-
-		Optional<Entreprise> entrepriseNewRemu = repoEntreprise.findById(dto.getIdEntreprise());
-
-		Optional<ProfilRemuneration> profilNewRemu = profilRepo.findById(dto.getIdProfilRemu());
-
-		Optional<Grade> gradeNewRemu = repoGrade.findById(dto.getIdGrade());
-
-		if (entrepriseNewRemu.isPresent() && profilNewRemu.isPresent() && gradeNewRemu.isPresent()) {
-
-		//	RemunerationEmploye newRemu = new RemunerationEmploye (dto.getMatricule(),entrepriseNewRemu.get(),profilNewRemu.get(),gradeNewRemu.get());
-
-		//	returnedRemu = repoRemuEmp.save(newRemu);
+	@Transactional
+	public RemunerationEmploye ajouterEmploye(String matricule, int idEntreprise, int idProfilRemu, int idGrade) {
+		List<String> messagesErreurs = new ArrayList<>();
+		
+		Optional<Entreprise> optEntreprise = entrepriseService.recupererEntreprise(idEntreprise);
+		if (!optEntreprise.isPresent()) {
+			messagesErreurs.add("L'id " + idEntreprise + " ne correspond à aucune entreprise.");
 		}
-
-		return returnedRemu;
+		
+		Optional<ProfilRemuneration> optProfilRemuneration = profilRemunerationService.getProfilById(idProfilRemu);
+		if (!optProfilRemuneration.isPresent()) {
+			messagesErreurs.add("L'id " + idProfilRemu + " ne correspond à aucun profil de remunération.");
+		}
+		
+		Optional<Grade> optGrade = gradeService.getGradeById(idGrade);
+		if (!optGrade.isPresent()) {
+			messagesErreurs.add("L'id " + idGrade + " ne correspond à aucun grade.");
+		}
+		
+		RemunerationEmploye remunerationEmploye = new RemunerationEmploye();
+		
+	
+		remunerationEmploye.setMatricule(matricule);
+		remunerationEmploye.setEntreprise(optEntreprise.get());
+		remunerationEmploye.setProfilRemuneration(optProfilRemuneration.get());
+		remunerationEmploye.setGrade(optGrade.get());
+		
+		
+		
+		return repoRemuEmp.save(remunerationEmploye);
+	}
+	
+	public Optional<RemunerationEmploye> getRemuEmployeById (Integer id) {
+		return repoRemuEmp.findById(id);
+}
+	public List<RemunerationEmploye> listerRemuEmploye() {
+		return repoRemuEmp.findAll();
 	}
 
 }
+	
+	
+

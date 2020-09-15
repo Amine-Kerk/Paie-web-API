@@ -5,28 +5,26 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import dev.paie.DTO.BulletinSalaireReponseDto;
+import dev.paie.entite.BulletinSalaire;
 import dev.paie.service.BulletinSalaireService;
 
 @RestController
 @RequestMapping("bulletins")
 public class BulletinSalaireController {
 
-	private BulletinSalaireService bService;
+	private BulletinSalaireService bulletinSalaireService;
 
-	public BulletinSalaireController(BulletinSalaireService bService) {
+	public BulletinSalaireController(BulletinSalaireService bulletinSalaireService) {
 		super();
-		this.bService = bService;
+		this.bulletinSalaireService = bulletinSalaireService;
 	}
 
-	@GetMapping("all")
-	public ResponseEntity<?> getAllBulletins() {
+	@GetMapping
+	public ResponseEntity<?> getListeBulletins() {
 
-		List <BulletinSalaireReponseDto> listeB = bService.listerBulletins();
+		List<BulletinSalaire> listeB = bulletinSalaireService.listerBulletins();
 
 		if (!listeB.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.OK).header("message", "Bulletins trouvés").body(listeB);

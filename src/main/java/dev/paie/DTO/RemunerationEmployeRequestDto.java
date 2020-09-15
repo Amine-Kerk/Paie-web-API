@@ -16,6 +16,7 @@ public class RemunerationEmployeRequestDto {
 	@NotNull
 	private int idGrade;
 
+
 	public String getMatricule() {
 		return matricule;
 	}

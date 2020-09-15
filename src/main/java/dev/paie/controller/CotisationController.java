@@ -1,12 +1,14 @@
 package dev.paie.controller;
 
-import java.util.List;
+
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import dev.paie.DTO.CotisationReponseDto;
+
+import dev.paie.entite.Cotisation;
 import dev.paie.service.CotisationService;
 
 public class CotisationController {
@@ -17,10 +19,10 @@ public class CotisationController {
 		this.cService = cService;
 	}
 
-	@GetMapping("all")
+	@GetMapping
 	public ResponseEntity<?> getAllCotisations() {
 
-		List <CotisationReponseDto> listeC = cService.listerCotisations();
+		Optional<Cotisation> listeC = cService.getCotisationImposable(true);
 
 		if (!listeC.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.OK).header("message", "Cotisations trouvées").body(listeC);

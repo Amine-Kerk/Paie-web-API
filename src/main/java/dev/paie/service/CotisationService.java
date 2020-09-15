@@ -1,32 +1,40 @@
 package dev.paie.service;
 
-import java.util.ArrayList;
-import java.util.List;
+
+
+
+
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import dev.paie.DTO.CotisationReponseDto;
+
 import dev.paie.entite.Cotisation;
 import dev.paie.repository.CotisationRepository;
+
+
 @Service
 public class CotisationService {
-	private CotisationRepository repoCotisation;
+	
+	private CotisationRepository cotisationRepository;
 
-	public CotisationService(CotisationRepository repoCotisation) {
-		this.repoCotisation = repoCotisation;
+	
+
+	public CotisationService(CotisationRepository cotisationRepository) {
+		super();
+		this.cotisationRepository = cotisationRepository;
 	}
 
-	public List<CotisationReponseDto> listerCotisations() {
 
-		List<CotisationReponseDto> listDto = new ArrayList();
 
-		List<Cotisation> listeCotisations = repoCotisation.findAll();
-
-		for (Cotisation cotisation : listeCotisations) {
-			listDto.add(new CotisationReponseDto(cotisation));
-		}
-
-		return listDto;
+	public Optional<Cotisation> getCotisationImposable(boolean b) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	
+
+	
+	
 
 }
